@@ -10,6 +10,7 @@ import UIKit
 
 class PokemonDetailVC: UIViewController {
     
+    
     @IBOutlet var nameLbl: UILabel!
     
     var pokemon: Pokemon!
@@ -17,7 +18,7 @@ class PokemonDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        nameLbl.text = pokemon.name
+        nameLbl.text = pokemon.name.capitalizedString
     }
 
     override func didReceiveMemoryWarning() {
