@@ -12,6 +12,16 @@ class PokemonDetailVC: UIViewController {
     
     
     @IBOutlet var nameLbl: UILabel!
+    @IBOutlet var mainImg: UIImageView!
+    @IBOutlet var descriptionLbl: UILabel!
+    @IBOutlet var typeLbl: UILabel!
+    @IBOutlet var defenseLbl: UILabel!
+    @IBOutlet var heightLbl: UILabel!
+    @IBOutlet var pokedexIdLbl: UILabel!
+    @IBOutlet var evoLbl: UILabel!
+    @IBOutlet var currentEvoImg: UIImageView!
+    @IBOutlet var nextEvoImg: UIImageView!
+    
     
     var pokemon: Pokemon!
 
@@ -19,6 +29,13 @@ class PokemonDetailVC: UIViewController {
         super.viewDidLoad()
 
         nameLbl.text = pokemon.name.capitalizedString
+        mainImg.image = UIImage(named: "\(pokemon.pokedexId)")
+        
+        //This will be called after download is done
+        pokemon.downloadPokemonDetails { () -> () in
+            
+            
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,15 +43,11 @@ class PokemonDetailVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func backBtnPressed(sender: AnyObject) {
+        
+        dismissViewControllerAnimated(true, completion: nil)
     }
-    */
+
+  
 
 }
