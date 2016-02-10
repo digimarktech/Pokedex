@@ -21,6 +21,8 @@ class PokemonDetailVC: UIViewController {
     @IBOutlet var evoLbl: UILabel!
     @IBOutlet var currentEvoImg: UIImageView!
     @IBOutlet var nextEvoImg: UIImageView!
+    @IBOutlet var weightLbl: UILabel!
+    @IBOutlet var attackLbl: UILabel!
     
     
     var pokemon: Pokemon!
@@ -29,13 +31,44 @@ class PokemonDetailVC: UIViewController {
         super.viewDidLoad()
 
         nameLbl.text = pokemon.name.capitalizedString
-        mainImg.image = UIImage(named: "\(pokemon.pokedexId)")
+        let img = UIImage(named: "\(pokemon.pokedexId)")
+        mainImg.image = img
+        currentEvoImg.image = img
         
         //This will be called after download is done
         pokemon.downloadPokemonDetails { () -> () in
             
-            
+            self.updateUI()
         }
+    }
+    
+    func updateUI() {
+        
+        descriptionLbl.text = pokemon.description
+        typeLbl.text = pokemon.type
+        defenseLbl.text = pokemon.defense
+        heightLbl.text = pokemon.height
+        weightLbl.text = pokemon.weight
+        attackLbl.text = pokemon.attack
+        pokedexIdLbl.text = String(pokemon.pokedexId)
+        
+        if pokemon.nextEvolutionId == "" {
+            
+            evoLbl.text = "No Evolutions"
+            nextEvoImg.hidden = true
+            
+        } else {
+            
+            nextEvoImg.hidden = false
+            nextEvoImg.image = UIImage(named: pokemon.nextEvolutionId)
+            var str = "Next Evolution: \(pokemon.nextEvolutionTxt.capitalizedString)"
+            
+            if pokemon.nextEvolutionLvl != "" {
+                
+                str += " - LVL \(pokemon.nextEvolutionLvl)"
+            }
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
